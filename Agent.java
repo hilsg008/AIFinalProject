@@ -11,7 +11,7 @@ public class Agent implements Comparable<Agent>{
     private int[] sequence;
     private int[] series;
     private int maxTerms;
-    private static int maxCoefficient = 200;
+    private static int maxCoefficient = 50;
 
     public Agent(int[] genetics, int[] series) {
         genes = genetics;
