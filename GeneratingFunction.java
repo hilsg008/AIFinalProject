@@ -4,10 +4,12 @@ public class GeneratingFunction {
 
     private static int[] coefficients;
     private static int numTerms;
+    private static int[] currentSeries;
 
     private GeneratingFunction(int[] coefficients) {
         this.coefficients = coefficients;
         numTerms =  1;
+        generateSequence();
     }
 
     public static synchronized GeneratingFunction getInstance(int[] coefficients) {
@@ -24,7 +26,7 @@ public class GeneratingFunction {
         return SINGLE_INSTANCE;
     }
 
-    public int[] getSequence() {
+    private void generateSequence() {
         int[] terms = new int[numTerms];        
         for(int i=0; i<numTerms; i++) {
             int result = 0;
@@ -33,7 +35,11 @@ public class GeneratingFunction {
             }
             terms[i] = result;
         }
-        return terms;
+        currentSeries = terms;
+    }
+
+    public int[] getSequence() {
+        return currentSeries;
     }
 
     public int getTerms() {
@@ -42,5 +48,6 @@ public class GeneratingFunction {
 
     public void increaseTerms() {
         numTerms+= 1;
+        generateSequence();
     }
 }

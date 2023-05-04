@@ -25,7 +25,7 @@ public class Agent implements Comparable<Agent>{
         maxTerms = numCoefficients;
         int[] newGenes = new int[maxTerms];
         for(int i=0; i<maxTerms; i++) {
-            newGenes[i] = (int)(Math.random() * maxCoefficient) - maxCoefficient/2;
+            newGenes[i] = (int)(Math.random() * 2 * maxCoefficient) - maxCoefficient;
         }
         genes = newGenes;
         this.series = series;
@@ -65,22 +65,19 @@ public class Agent implements Comparable<Agent>{
      */
     @Override
     public int compareTo(Agent o) {
-        if(o.accuracy.length != accuracy.length) {
-            System.out.println("HELP WTF");
-        }
-        for(int i=o.accuracy.length-1; i>=0; i--) {
+        for(int i=0; i<o.accuracy.length; i++) {
             if(accuracy[i] != o.accuracy[i]) {
                 return o.accuracy[i] - accuracy[i];
             }
         }
         int[] otherAgentsGenes = o.getGenetics();
-            for(int i=genes.length-1; i>=0; i--) {
-                if(genes[i] != otherAgentsGenes[i]) {
-                    return otherAgentsGenes[i] - genes[i];
-                }
+        for(int i=genes.length-1; i>=0; i--) {
+            if(genes[i] != otherAgentsGenes[i]) {
+                return otherAgentsGenes[i] - genes[i];
             }
-            return 0;
         }
+        return 0;
+    }
 
     public int[] getGenetics() {
         return genes;
